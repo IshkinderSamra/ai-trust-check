@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-slate-950 text-slate-50 antialiased;
+  background-image:
+    radial-gradient(circle at top, rgba(45, 212, 191, 0.18), transparent 28%),
+    linear-gradient(180deg, #020617 0%, #0f172a 100%);
+}
+
+a,
+button,
+textarea {
+  @apply transition duration-200;
+}
+
+textarea::placeholder {
+  color: #94a3b8;
+}
