@@ -102,8 +102,6 @@ export default function EvaluatePage() {
     High: "text-rose-300 bg-rose-400/10 border-rose-400/20"
   };
 
-  const hasResult = Boolean(result);
-
   function handleUseSample() {
     setAnswer(sampleAnswer);
     setError("");
@@ -176,7 +174,7 @@ export default function EvaluatePage() {
                 <p className="text-sm text-rose-300">{error}</p>
               ) : (
                 <p className="text-sm text-slate-400">
-                  {hasResult
+                  {result
                     ? "Your latest evaluation is shown in the result cards."
                     : "Use the sample button or paste your own AI answer to begin."}
                 </p>
@@ -206,7 +204,7 @@ export default function EvaluatePage() {
               </p>
               {isLoading ? (
                 <div className="mt-4 h-16 animate-pulse rounded-2xl bg-white/10" />
-              ) : hasResult ? (
+              ) : result ? (
                 <p className="mt-3 text-4xl font-semibold text-white">
                   {result.reliabilityScore}
                   <span className="ml-1 text-lg text-slate-400">/10</span>
@@ -224,7 +222,7 @@ export default function EvaluatePage() {
               </p>
               {isLoading ? (
                 <div className="mt-4 h-10 w-32 animate-pulse rounded-full bg-white/10" />
-              ) : hasResult ? (
+              ) : result ? (
                 <div
                   className={`mt-3 inline-flex rounded-full border px-4 py-2 text-sm font-semibold ${
                     riskStyles[result.hallucinationRisk]
@@ -246,16 +244,22 @@ export default function EvaluatePage() {
                   <div className="h-11 animate-pulse rounded-2xl bg-white/10" />
                   <div className="h-11 animate-pulse rounded-2xl bg-white/10" />
                 </div>
-              ) : result?.issues.length ? (
+              ) : result ? (
                 <ul className="mt-3 space-y-2 text-sm leading-6 text-slate-200">
-                  {result.issues.map((issue) => (
-                    <li
-                      key={issue}
-                      className="rounded-2xl border border-white/10 bg-slate-900/70 px-3 py-3"
-                    >
-                      {issue}
+                  {result.issues.length > 0 ? (
+                    result.issues.map((issue) => (
+                      <li
+                        key={issue}
+                        className="rounded-2xl border border-white/10 bg-slate-900/70 px-3 py-3"
+                      >
+                        {issue}
+                      </li>
+                    ))
+                  ) : (
+                    <li className="rounded-2xl border border-white/10 bg-slate-900/70 px-3 py-3 text-slate-400">
+                      No major issues were flagged for this answer.
                     </li>
-                  ))}
+                  )}
                 </ul>
               ) : (
                 <p className="mt-3 text-sm leading-6 text-slate-400">
