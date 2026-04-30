@@ -102,7 +102,6 @@ export default function EvaluatePage() {
     High: "text-rose-300 bg-rose-400/10 border-rose-400/20"
   };
 
-  const result = Boolean(result);
 
   function handleUseSample() {
     setAnswer(sampleAnswer);
